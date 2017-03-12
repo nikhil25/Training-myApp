@@ -1,0 +1,25 @@
+<h3>Login partial view</h3>
+
+<form class="well" name="userform">
+    Enter Customer Details: <input ng-model="user.username" name = "uname" placeholder="Enter User Name" ng-required="true">
+    <br>
+    <span ng-messages="userform.uname.$error" ng-show = "userform.uname.$dirty">
+        <b style="color:red" ng-message="required">**User Name is Required</b>
+    </span>
+    <br>
+    Contact NUmber: <input ng-model="user.contactno" name = "contactno" placeholder="Enter Contact Number" ng-required="true" ng-pattern="/^[789]\d{9}$/">
+    <span ng-messages= "userform.contactno.$error" ng-show="userform.contactno.$dirty">
+        <b style="color: red" ng-message= "required" >Contact Number is mandatory</b>
+        <b style="color: red" ng-message= "pattern" >Invalid Contact Number</b>
+    </span>
+    <br>
+    <select name="ustate" ng-model="user.state" ng-options="state.stateId as 
+        state.Name for state in stateList" required="true">
+        <option value="">Select</option>
+    </select>
+    <span ng-messages= "userform.ustate.$error" ng-show="userform.ustate.$dirty">
+        <b style="color: red" ng-message="required">State is mandatory</b>
+    </span>
+    <br>
+    <button ng-disabled= "userform.$invalid" class="btn btn-primary">Sign Up</button>
+</form>

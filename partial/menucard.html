@@ -1,0 +1,69 @@
+<h3>Menu Card </h3>
+<div ng-controller ="MenuController" class = "col-sm-6">
+            <h3>List of Menu Items</h3>
+            
+            <div class="well">
+                Search: <input ng-model = "mySearch"/>
+            </div>
+    
+    
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>
+                        <a ng-click="sortCol= 'name'"> 
+                        Name
+                        </a>
+                    </th>
+                    <th>
+                        <a ng-click="sortCol= 'price'">
+                        Price
+                        </a>
+                    </th>
+                    <th>
+                        Place order
+                    </th>                                    
+                </tr>
+                <tr ng-repeat = "menuItem in itemList | filter: mySearch | orderBy: sortCol">
+                    <td>{{menuItem.name}}</td>
+                    <td>{{menuItem.price}}</td>
+                    <td><button class = "btn btn-primary" ng-click = "placeOrder(menuItem)">Order</button></td>
+                </tr>
+            </table>
+        </div>
+        
+        <div ng-controller = "OrderController" class = "col-sm-6 well">
+            <h3>Ordered items are:
+            <span class ="label label-primary" >{{myOrders.length}}</span>
+            <table class="table table-bordered table-striped">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+                        Price
+                    </th>
+                    <th>
+                        Quantity
+                    </th> 
+                    <th>
+                        Amount
+                </tr>
+                
+                <tr ng-repeat = "item in myOrders">
+                    <td><button class = "btn btn-danger btn-xs" ng-click = "cancelOrder($index)">X</button>
+                    {{item.name}}</td>
+                    <td>{{item.price}}</td>
+<!--                    <td>{{item.qty}}</td>-->
+                    <td>
+                    <input type="number" ng-model="item.qty" style="width: 50px" min="1">
+                    </td>
+                    <td>{{item.price * item.qty}}</td>
+                </tr>
+                
+                <tr>
+                    <td colspan="3">Total Amount
+                    </td>
+                    <td>{{totalAmount()}}</td>
+                </tr>
+            </table>
+        </div>
